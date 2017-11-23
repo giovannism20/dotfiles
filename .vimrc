@@ -1,4 +1,6 @@
 scriptencoding utf-8
+set spell spellang=pt_br
+
 "*****************************************************************************
 ""
 "" Vim Plug
