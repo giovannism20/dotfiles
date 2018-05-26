@@ -1,1 +1,1 @@
-# My Vim Dotfiles.
+# Vim Files.
