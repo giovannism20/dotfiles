@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/martins-giovanni/Área de Trabalho/crud/src/app'
-let g:netrw_dirhist_2='/home/martins-giovanni/Área de Trabalho/crud/src'
-let g:netrw_dirhist_3='/home/martins-giovanni/Área de Trabalho/crud/src/pages'
-let g:netrw_dirhist_4='/home/martins-giovanni/Área de Trabalho/crud/src'
-let g:netrw_dirhist_5='/home/martins-giovanni/Área de Trabalho/crud/src/app'

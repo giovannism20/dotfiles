@@ -1,20 +1,15 @@
-scriptencoding utf-8
-set spell spellang=pt
+" vim-bootstrap b990cad
 
 "*****************************************************************************
-""
-"" Vim Plug
-"" Author: Martins Giovanni && Vim Bootstrap
-""
+"" Vim-PLug core && Martins Giovanni
 "*****************************************************************************
 if has('vim_starting')
   set nocompatible               " Be iMproved
 endif
 
-" Setting up Plug - the best Vim plugin manager
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-let g:vim_bootstrap_langs = "c,go,html,javascript,perl,php,python,ruby,rust"
+let g:vim_bootstrap_langs = "c,elixir,elm,erlang,go,haskell,html,javascript,lisp,lua,ocaml,perl,php,python,ruby,rust,scala"
 let g:vim_bootstrap_editor = "vim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
@@ -33,12 +28,10 @@ endif
 " Required:
 call plug#begin(expand('~/.vim/plugged'))
 
-" ===========================================================================
-"" Active Plugins
-" ===========================================================================
-" You can disable or add new ones here :
-
-" Better file browser
+"*****************************************************************************
+"" Plug install packages
+"*****************************************************************************
+Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
@@ -94,9 +87,30 @@ Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 Plug 'ludwig/split-manpage.vim'
 
 
+" elixir
+Plug 'elixir-lang/vim-elixir'
+Plug 'carlosgaldino/elixir-snippets'
+
+
+" elm
+"" Elm Bundle
+Plug 'elmcast/elm-vim'
+
+
+" erlang
+Plug 'jimenezrick/vimerl'
+
+
 " go
 "" Go Lang Bundle
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+
+" haskell
+"" Haskell Bundle
+Plug 'eagletmt/neco-ghc'
+Plug 'dag/vim2hs'
+Plug 'pbrisbin/vim-syntax-shakespeare'
 
 
 " html
@@ -110,6 +124,22 @@ Plug 'mattn/emmet-vim'
 " javascript
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
+
+
+" lisp
+"" Lisp Bundle
+Plug 'vim-scripts/slimv.vim'
+
+
+" lua
+"" Lua Bundle
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'xolox/vim-lua-inspect'
+
+
+" ocaml
+"" OCaml Bundle
+Plug 'def-lkb/ocp-indent-vim'
 
 
 " perl
@@ -145,6 +175,15 @@ Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 
 
+" scala
+if has('python')
+    " sbt-vim
+    Plug 'ktvoelker/sbt-vim'
+endif
+" vim-scala
+Plug 'derekwyatt/vim-scala'
+
+
 "*****************************************************************************
 "*****************************************************************************
 
@@ -169,6 +208,7 @@ set fileencodings=utf-8
 set bomb
 set binary
 set ttyfast
+set colorcolumn=80
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -316,7 +356,7 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -514,13 +554,35 @@ autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
 
+" elixir
+
+
+" elm
+" elm-vim
+let g:elm_setup_keybindings = 0
+let g:elm_format_autosave = 1
+
+" vim-polyglot
+let g:polyglot_disabled = ['elm']
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
+
+
+" erlang
+let erlang_folding = 1
+let erlang_show_errors = 1
+
+
 " go
 " vim-go
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
   let l:file = expand('%')
   if l:file =~# '^\f\+_test\.go$'
-    call go#cmd#Test(0, 1)
+    call go#test#Test(0, 1)
   elseif l:file =~# '^\f\+\.go$'
     call go#cmd#Build(0)
   endif
@@ -572,10 +634,19 @@ augroup go
   au FileType go nmap <Leader>i <Plug>(go-info)
   au FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
   au FileType go nmap <C-g> :GoDecls<cr>
+  au FileType go nmap <leader>dr :GoDeclsDir<cr>
   au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
+  au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
 
 augroup END
+
+
+" haskell
+let g:haskell_conceal_wide = 1
+let g:haskell_multiline_strings = 1
+let g:necoghc_enable_detailed_browse = 1
+autocmd Filetype haskell setlocal omnifunc=necoghc#omnifunc
 
 
 " html
@@ -591,6 +662,21 @@ augroup vimrc-javascript
   autocmd!
   autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4
 augroup END
+
+
+" lisp
+
+
+" lua
+
+
+" ocaml
+" Add Merlin to rtp
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
+" Set Merlin as Syntastic checker for OCaml
+let g:syntastic_ocaml_checkers = ['merlin']
 
 
 " perl
@@ -686,6 +772,9 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 
+" scala
+
+
 "*****************************************************************************
 "*****************************************************************************
 
@@ -733,4 +822,3 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
-Plug 'wakatime/vim-wakatime'
