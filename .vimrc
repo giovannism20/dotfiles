@@ -1,7 +1,7 @@
 " vim-bootstrap b990cad
 
 "*****************************************************************************
-"" Vim-PLug core && Martins Giovanni
+"" Vim-PLug core
 "*****************************************************************************
 if has('vim_starting')
   set nocompatible               " Be iMproved
@@ -31,7 +31,6 @@ call plug#begin(expand('~/.vim/plugged'))
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
@@ -208,7 +207,8 @@ set fileencodings=utf-8
 set bomb
 set binary
 set ttyfast
-set colorcolumn=80
+set relativenumber
+" set mouse=a
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -523,10 +523,7 @@ noremap <leader>x :bn<CR>
 noremap <leader>w :bn<CR>
 
 "" Close buffer
-noremap <leader>c :bd<CR>
-
-"" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
+noremap <leader><space> :noh<cr>
 
 "" Switching windows
 noremap <C-j> <C-w>j
