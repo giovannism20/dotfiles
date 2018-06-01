@@ -14,20 +14,6 @@ site '*://*.netflix.com/watch*' {
     unmap <Space> f
 }
 
-getIP() -> {{
-httpRequest({url: 'http://api.ipify.org/?format=json', json: true},
-            function(res) { Status.setMessage('IP: ' + res.ip); });
-}}
-map ci :call getIP<CR>
-
-let blacklists = []
-
--> {{
-  Array.from(document.querySelectorAll('*[accesskey]')).forEach(e => {
-    e.removeAttribute('accesskey');
-  });
-}}
-
 let mapleader = ","
 
 " Mappings
