@@ -5,7 +5,11 @@ set nodimhintcharacters
 
 let locale = "br"
 
-let @@devTo = 'https://dev.to/'
+site '*://*.seriesflixapp.net/*/*' {
+    unmap <Space> f
+    unmap F
+    unmap f
+}
 
 site '*://*.netflix.com/watch*' {
     unmap <Space> f
