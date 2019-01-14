@@ -3,6 +3,7 @@
 |Type of Program      |Program         |
 |---------------------|----------------|
 | AUR Package Manager | tpac (trizen)  |
+| Web Browser         | Chromium       |
 | Password Manager    | Keepass        |
 | Window Manager      | i3             |
 | File Manager        | Caja           |
