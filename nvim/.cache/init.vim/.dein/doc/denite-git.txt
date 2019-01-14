@@ -1,0 +1,166 @@
+*denite-git.txt*	Git log and git status sources for |denite|
+
+Version: 0.4
+Author:  Qiming Zhao <chemzqm at gmail.com>
+License: MIT license
+
+CONTENTS						*denite-git-contents*
+
+Introduction		|denite-git-introduction|
+Install			|denite-git-install|
+Usage			|denite-git-usage|
+Actions 		|denite-git-actions|
+  gitlog 			|denite-gitlog-actions|
+  gitstatus 			|denite-gitstatus-actions|
+  gitchanged 			|denite-gitchanged-actions|
+  gitbranch 			|denite-gitbranch-actions|
+Changelog 			|denite-git-changelog|
+Feedback 			|denite-feedback|
+
+==============================================================================
+INTRODUCTION						*denite-git-introduction*
+
+Denite-git is a vim/neovim plugin for user to easily manage git log, git
+status and git changed lines with the help of |denite| interface.
+
+==============================================================================
+INSTALL 					 	*denite-git-install*
+
+Make sure you have "echo has('python3')" return 1 before useing |denite|.
+
+denite.nvim is required for provide union interface and.
+
+Take [vim-plug](https://github.com/junegunn/vim-plug) for example, add: >
+
+    Plug 'Shougo/denite.nvim'
+    Plug 'neoclide/denite-git'
+
+To your .vimrc and run "PlugInstall" after vim restarted.
+
+Note: |denite-git| requires python >= 3.5.
+
+==============================================================================
+USAGE 					 		*denite-git-usage*
+
+For gitlog source: >
+
+  " git log of current file
+  Denite gitlog
+
+  " all git log of current repository
+  Denite gitlog:all
+
+  " filter gitlog with fix as input
+  Denite gitlog::fix
+
+For gitstatus source: >
+
+  Denite gitstatus
+
+For gitchanged source: >
+
+  Denite gitchanged
+
+For gitbranch source: >
+
+  Denite gitbranch
+
+Note: denite-git find git root in the directory of vim current working
+directory ":echo getcwd()"
+
+==============================================================================
+ACTIONS 					 	*denite-git-actions*
+
+------------------------------------------------------------------------------
+GITLOG ACTIONS 					*denite-gitlog-actions*
+
+open (default)
+		Open seleted commit (with current file diff only if not all).
+
+preview
+		Preview seleted commit in preview window.
+
+delete
+		Run git diff with current commit(s) for current buffer.
+		
+		Note: three way diff is possible.
+
+reset
+		Run git reset command with current commit.
+
+The Kind of |denite-gitlog| is inherited from openable, so all openable
+actions are available.
+
+------------------------------------------------------------------------------
+GITSTATUS ACTIONS 				*denite-gitstatus-actions*
+
+open (default)
+		Open seleted file, default action
+
+add
+		Run git add for seleted file(s).
+
+delete
+		Run git diff for seleted file. (just named delete)
+
+reset
+		Run git reset/checkout or remove for seleted file(s).
+		A prompt would shown when needed.
+
+Commit
+
+		run git commit for seleted file(s).
+
+The Kind of |denite-gitstatus| is inherited from file, so all file
+actions are available.
+
+------------------------------------------------------------------------------
+GITCHANGED ACTIONS 				*denite-gitchanged-actions*
+
+open (default)
+		open seleted line in current buffer.
+
+------------------------------------------------------------------------------
+GITBRANCH ACTIONS 				*denite-gitbranch-actions*
+
+checkout (default)
+		Checkout seleted branch in current buffer.
+
+delete
+		Delete seleted branch.
+
+merge
+		Merge seleted branch.
+
+rebase
+
+		Rebase seleted branch with current branch.
+
+==============================================================================
+CHANGELOG 					 	*denite-git-changelog*
+
+0.4 	Jul 19, 2018
+
+	- reload buffers after branch action
+
+0.3 	Jun 14, 2017
+
+	- use diffPreview for diff action of git status
+	- add aptch action for git status
+
+0.2 	Feb 25, 2017
+
+	- add gitchanged source
+
+0.1     Feb 24, 2017
+
+	- works
+
+==============================================================================
+FEEDBACK 					 	*denite-git-feedback*
+
+|denite-git| is open sourced at https://github.com/chemzqm/denite-git.
+feel free to open a issue when you get any problem.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:
