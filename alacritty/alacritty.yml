@@ -1,0 +1,23 @@
+window:
+  decoration: full
+  startup_mode: Maximized
+  gtk_theme_variant: dark
+  dynamic_title: true
+
+scrolling:
+  history: 10000
+  multiplier: 4
+
+font:
+  normal:
+    family: JuliaMono
+    style: ExtraBold
+
+  size: 11
+
+shell:
+  program: /bin/zsh
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
