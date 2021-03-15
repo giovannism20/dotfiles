@@ -1,1 +1,2 @@
-print("Olá Giovanni")
+require("plugins")
+require("editor")
