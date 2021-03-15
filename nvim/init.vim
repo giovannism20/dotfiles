@@ -1,1 +1,1 @@
-set number
+lua require('init')
