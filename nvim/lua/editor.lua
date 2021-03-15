@@ -1,3 +1,17 @@
+local opts_info = vim.api.nvim_get_all_options_info()
+local opt = setmetatable({}, {
+  __index = vim.o,
+  __newindex = function(_, key, value)
+    vim.o[key] = value
+    local scope = opts_info[key].scope
+    if scope == "win" then
+      vim.wo[key] = value
+    elseif scope == "buf" then
+      vim.bo[key] = value
+    end
+  end,
+})
+
 local function set_globals()
   vim.g.mapleader = ","
 end
@@ -8,7 +22,6 @@ local function set_ui_options()
   opt.title = true
   opt.titlestring = "%{join(split(getcwd(), '/')[-2:], '/')}"
   opt.number = true
-  opt.relativenumber = true
   opt.colorcolumn = "80"
 
   -- colorscheme configs
@@ -65,3 +78,6 @@ local function set_options()
   set_editor_options()
   set_ui_options()
 end
+
+set_editor_options()
+set_ui_options()
